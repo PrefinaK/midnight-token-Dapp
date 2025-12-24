@@ -1,0 +1,85 @@
+import { createPrivateStateProvider } from '@midnight-ntwrk/compact-runtime';
+import * as contract from './managed/token/contract/index.cjs';
+
+// Private state structure
+export type PrivateState = {
+  balances: Map<string, bigint>;
+};
+
+// Initial private state
+export const initialPrivateState: PrivateState = {
+  balances: new Map()
+};
+
+// Witness providers (provide private data to circuits)
+export const witnesses = {
+  // Provide the user's current balance
+  userBalance: (context: any, privateState: PrivateState): bigint => {
+    const userAddress = context.sender || context.coinPublicKey;
+    const balance = privateState.balances.get(userAddress) || 0n;
+    console.log(`[Witness] userBalance for ${userAddress}: ${balance}`);
+    return balance;
+  },
+
+  // Provide the recipient's current balance
+  recipientBalance: (context: any, privateState: PrivateState, recipient: Uint8Array): bigint => {
+    const recipientAddress = Buffer.from(recipient).toString('hex');
+    const balance = privateState.balances.get(recipientAddress) || 0n;
+    console.log(`[Witness] recipientBalance for ${recipientAddress}: ${balance}`);
+    return balance;
+  }
+};
+
+// State transitions (update private state after circuit execution)
+export const stateTransitions = {
+  // After mint: update user's balance
+  mint: (
+    privateState: PrivateState,
+    context: any,
+    result: bigint
+  ): PrivateState => {
+    const userAddress = context.sender || context.coinPublicKey;
+    const newBalances = new Map(privateState.balances);
+    newBalances.set(userAddress, result);
+    console.log(`[StateTransition] mint: ${userAddress} -> ${result}`);
+    return { balances: newBalances };
+  },
+
+  // After transfer: update both sender and recipient balances
+  transfer: (
+    privateState: PrivateState,
+    context: any,
+    result: [bigint, bigint],
+    recipient: Uint8Array
+  ): PrivateState => {
+    const senderAddress = context.sender || context.coinPublicKey;
+    const recipientAddress = Buffer.from(recipient).toString('hex');
+    const newBalances = new Map(privateState.balances);
+    newBalances.set(senderAddress, result[0]);
+    newBalances.set(recipientAddress, result[1]);
+    console.log(`[StateTransition] transfer: ${senderAddress} -> ${result[0]}, ${recipientAddress} -> ${result[1]}`);
+    return { balances: newBalances };
+  },
+
+  // getBalance doesn't change state
+  getBalance: (privateState: PrivateState): PrivateState => {
+    console.log('[StateTransition] getBalance: no state change');
+    return privateState;
+  },
+
+  // getTotalSupply doesn't change state
+  getTotalSupply: (privateState: PrivateState): PrivateState => {
+    console.log('[StateTransition] getTotalSupply: no state change');
+    return privateState;
+  }
+};
+
+// Create the private state provider
+export const privateStateProvider = createPrivateStateProvider(
+  contract,
+  witnesses,
+  stateTransitions,
+  initialPrivateState
+);
+
+console.log('✅ Private state provider initialized');

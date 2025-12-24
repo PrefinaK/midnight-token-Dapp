@@ -1,17 +1,43 @@
-// This file is part of midnightntwrk/example-counter.
-// Copyright (C) 2025 Midnight Foundation
-// SPDX-License-Identifier: Apache-2.0
-// Licensed under the Apache License, Version 2.0 (the "License");
-// You may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+import { Ledger } from "./managed/token/contract/index.cjs";
 
-export * from "./managed/bboard/contract/index.cjs";
-export * from "./witnesses";
+export type PrivateState = {
+  balances: Map<string, bigint>;
+};
+
+export const initialPrivateState: PrivateState = {
+  balances: new Map()
+};
+
+export const witnesses = {
+  userBalance: (_ledger: Ledger, privateState: PrivateState): bigint => {
+    const userAddress = "default-user";
+    return privateState.balances.get(userAddress) || 0n;
+  },
+
+  recipientBalance: (_ledger: Ledger, privateState: PrivateState, recipient: Uint8Array): bigint => {
+    const recipientAddress = Array.from(recipient).map(b => b.toString(16).padStart(2, '0')).join('');
+    return privateState.balances.get(recipientAddress) || 0n;
+  }
+};
+
+export const stateTransitions = {
+  mint: (privateState: PrivateState, _oldLedger: Ledger, _newLedger: Ledger, result: bigint): PrivateState => {
+    const userAddress = "default-user";
+    const newBalances = new Map(privateState.balances);
+    newBalances.set(userAddress, result);
+    return { balances: newBalances };
+  },
+
+  transfer: (privateState: PrivateState, _oldLedger: Ledger, _newLedger: Ledger, result: [bigint, bigint], recipient: Uint8Array): PrivateState => {
+    const senderAddress = "default-user";
+    const recipientAddress = Array.from(recipient).map(b => b.toString(16).padStart(2, '0')).join('');
+    const newBalances = new Map(privateState.balances);
+    newBalances.set(senderAddress, result[0]);
+    newBalances.set(recipientAddress, result[1]);
+    return { balances: newBalances };
+  },
+
+  getBalance: (privateState: PrivateState): PrivateState => privateState,
+
+  getTotalSupply: (privateState: PrivateState): PrivateState => privateState
+};

@@ -1,0 +1,45 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+export ledger totalSupply: Uint<64>;
+
+constructor() {
+  totalSupply = 0;
+}
+
+witness userBalance(): Uint<64>;
+witness recipientBalance(): Uint<64>;
+
+export circuit mint(amount: Uint<64>): Uint<64> {
+  assert(amount > 0, "Amount must be positive");
+  assert(amount <= 1000, "Max 1000 per mint");
+  
+  const current = userBalance();
+  const newBalance = disclose((current + amount) as Uint<64>);
+  totalSupply = disclose((totalSupply + amount) as Uint<64>);
+  
+  return newBalance;
+}
+
+export circuit transfer(recipient: Bytes<32>, amount: Uint<64>): [Uint<64>, Uint<64>] {
+  assert(amount > 0, "Amount must be positive");
+  
+  const senderBal = userBalance();
+  const recipientBal = recipientBalance();
+  
+  assert(senderBal >= amount, "Insufficient balance");
+  
+  const newSenderBal = disclose((senderBal - amount) as Uint<64>);
+  const newRecipientBal = disclose((recipientBal + amount) as Uint<64>);
+  
+  return [newSenderBal, newRecipientBal];
+}
+
+export circuit getBalance(): Uint<64> {
+  return disclose(userBalance());
+}
+
+export circuit getTotalSupply(): Uint<64> {
+  return totalSupply;
+}
