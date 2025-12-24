@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "file": "index.cjs",
+  "sourceRoot": "../../../../",
+  "sources": ["src/token.compact"],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EAMA;;;;;;;;;;;;;;;;MAOA,AAAA,IASC;;;;;cATmB,QAAgB;;;;;;;;;;;;;;;;;;yCAAhB,QAAgB;;;;;;;iEAAhB,QAAgB;;;OASnC;MAED,AAAA,QAYC;;;;;cAZuB,WAAoB;cAAE,QAAgB;;;;;;;;;;;;;;;;;;;;;;;;;yCAAtC,WAAoB,+BAAE,QAAgB;;;;;;;;;0CAAtC,WAAoB;0CAAE,QAAgB;;;OAY7D;MAED,AAAA,UAEC;;;;;;;;;;;;;;;;;;;;;;OAAA;MAED,AAAA,cAEC;;;;;;;;;;;;;;;;;;;;;;OAAA;;;;;;;;GApCA;EAFD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAFA;;;;;;;;;uDAAoC;UAGlC,KAAW;IAAX;;;;;;;yGAAA,KAAW;;uDAAA;;;;;;;GACZ;EAED,AAAA,cAAgC;;0DAAhC,WAAgC;;;;;;;;;;;;;;GAAA;EAChC,AAAA,mBAAqC;;0DAArC,gBAAqC;;;;;;;;;;;;;;GAAA;EAErC,AAAA,OASC,4BATmB,QAAgB;4BAC3B,QAAM;4BACN,QAAM;UAEP,SAAuB;UACvB,YAAqD;;;;;4BAA9B,SAAO,GAAG,QAAM;UAC7C,KAAW;;;;;6CAAa;;;;;;;;;;;gGAAW;;qBAAG,QAAM;IAA5C;;;;;;;yGAAA,KAAW;;uDAAA;WAEJ,YAAU;GAClB;EAED,AAAA,WAYC,4BAZuB,WAAoB,EAAE,QAAgB;4BACrD,QAAM;UAEP,WAAyB;UACzB,cAAiC;4BAEhC,WAAS,IAAI,QAAM;UAEpB,cAAyD,8BAAhC,WAAS,GAAG,QAAM;;4BAAlB,WAAS,GAAG,QAAM;UAC3C,iBAA+D;;;;;iCAAnC,cAAY,GAAG,QAAM;YAE/C,cAAY,EAAE,iBAAe;GACtC;EAED,AAAA,aAEC;;GAAA;EAED,AAAA,iBAEC;mCADQ;;;;;;;;;;;sFAAW;GACnB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAxCD;qCAAA;;;;;;;;;;;wFAAoC;KAAA;;;;;;;;;;;;;;;;"
+}
