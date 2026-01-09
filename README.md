@@ -39,43 +39,35 @@ This project is designed for learning, workshops, and guided development session
 🔍 What This Project Demonstrates
 
 Midnight smart contract development using Compact
-
 Zero-knowledge circuit compilation
-
 Wallet detection and interaction (simulated)
-
 TypeScript backend with Express
-
 Frontend integration
-
 Full local development workflow
 
+
 📦 Prerequisites
-
 Ensure you have the following installed:
-
 Terminal / Command Line
-
 Internet connection
-
 Node.js v20+
-
 npm
-
 Git
-
 Basic understanding of JavaScript / TypeScript
+
 
 🛠 Environment Setup
 1️⃣ Install Node Version Manager (nvm)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 source ~/.bashrc
 
+
 2️⃣ Install and Use Node.js 20
 nvm install 20
 nvm use 20
 node -v
 npm -v
+
 
 📁 Project Initialization
 
@@ -91,10 +83,13 @@ npm install @midnight-ntwrk/compact-runtime
 npm install @midnight-ntwrk/ledger
 npm install --save-dev @types/node
 
+
+
 🧩 Install Compact (Midnight Developer Tools)
 Install Compact CLI
 curl --proto '=https' --tlsv1.2 -LsSf \
 https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh
+
 
 
 Add Compact to PATH:
@@ -102,6 +97,7 @@ Add Compact to PATH:
 export PATH="$HOME/.local/bin:$PATH"
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
+
 
 
 Install compiler version:
@@ -126,89 +122,61 @@ workspace/repo/
 🧠 Smart Contract (Compact)
 
 The contract defines basic token circuits:
-
 mint
-
 burn
-
 transfer
-
 getBalance
-
 getTotalSupply
-
 Compile the contract:
 
 compact compile contract/src/token.compact contract/artifacts/
 
+
+
+
 ⚙ Backend (Node.js + TypeScript)
-
 Compile TypeScript:
-
 npx tsc
 
 
 Start the server:
-
 npm start
 
 
 Server runs at:
-
 http://localhost:8080
 
 🎨 Frontend
-
 Simple HTML interface
-
 Wallet connect simulation
-
 Token mint interaction
-
 Server health check
 
-Open in browser:
 
+Open in browser:
 http://localhost:8080
 
 ✅ Verification Checklist
-
 Node.js v20+ installed
-
 Compact installed and accessible
-
 Contracts compile successfully
-
 TypeScript builds without errors
-
 Server starts correctly
-
 UI loads in browser
 
+
+
 🚀 Next Steps
-
 Integrate real Midnight wallet APIs
-
 Deploy contracts to Midnight testnet
-
 Implement real transaction signing
-
 Extend UI and contract logic
 
 
-
-
-
-
-
 Running the Compiled Smart Contract
-
 After installation and compilation, the Compact smart contract outputs JavaScript and type definition files that can be consumed by the host or UI layer.
-
 Compile the Contract
-
 From the project root:
-
 npx tsc -p tsconfig.json
 
 
@@ -218,13 +186,9 @@ contract/src/
 
 
 into:
-
 contract/dist/
-
 Expected Output
-
 After compilation, you should see files similar to:
-
 contract/dist/
 ├── index.js
 ├── index.d.ts
@@ -233,8 +197,8 @@ contract/dist/
 └── managed/
 
 
+
 📚 Resources
 
 Midnight Docs: https://docs.midnight.network
-
 Compact Language: https://docs.midnight.network/develop/compact
