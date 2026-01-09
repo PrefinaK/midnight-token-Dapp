@@ -1,8 +1,7 @@
 # midnight-token-Dapp
+ Midnight Token – Smart Contract & UI Demo
 
-# Midnight Token – Smart Contract & UI Demo
-
-## Overview
+# Overview
 
 This project demonstrates the creation and interaction of a **Midnight smart contract** using:
 - **Compact** for contract definition and compilation
@@ -11,11 +10,8 @@ This project demonstrates the creation and interaction of a **Midnight smart con
 
 The purpose of this project is **educational**: to show how a smart contract is structured, compiled, and connected to a UI in a privacy-preserving blockchain environment.
 
----
 
 ## Project Structure
-
-```text
 midnight-token/
 ├── contract/        # Smart contract & witness logic (Compact / TypeScript)
 ├── public/          # UI (index.html)
@@ -23,129 +19,181 @@ midnight-token/
 ├── bboard-cli/      # Midnight tooling (kept as reference)
 ├── package.json
 └── README.md
-Prerequisites
+
+📦 Prerequisites
 Ensure the following are installed:
 
-Node.js (v18+ recommended)
+*Node.js (v18+ recommended, v20 preferred)
+*npm
+*Python 3
+Compact (Midnight smart contract language)
+*A Midnight-compatible browser wallet
+*Modern browser (Chrome, Edge, or Firefox)
+
+
+📘 Midnight Token DApp – Starter Guide
+
+A complete starter template for building a Midnight Token DApp using Compact smart contracts, a TypeScript/Node.js backend, and a simple frontend interface.
+This project is designed for learning, workshops, and guided development sessions within the Midnight (Cardano ecosystem) environment.
+
+🔍 What This Project Demonstrates
+
+Midnight smart contract development using Compact
+
+Zero-knowledge circuit compilation
+
+Wallet detection and interaction (simulated)
+
+TypeScript backend with Express
+
+Frontend integration
+
+Full local development workflow
+
+📦 Prerequisites
+
+Ensure you have the following installed:
+
+Terminal / Command Line
+
+Internet connection
+
+Node.js v20+
 
 npm
 
-Compact (Midnight smart contract language)
+Git
 
-A Midnight-compatible browser wallet
+Basic understanding of JavaScript / TypeScript
 
-Installing Compact
-Install Compact globally:
+🛠 Environment Setup
+1️⃣ Install Node Version Manager (nvm)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.bashrc
 
-bash
-Copy code
-npm install -g @midnight-ntwrk/compact
-Verify installation:
+2️⃣ Install and Use Node.js 20
+nvm install 20
+nvm use 20
+node -v
+npm -v
 
-bash
-Copy code
+📁 Project Initialization
+
+Navigate to your project folder:
+
+cd ~/workspace/repo
+
+
+Install Midnight dependencies:
+
+npm install @midnight-ntwrk/wallet-api
+npm install @midnight-ntwrk/compact-runtime
+npm install @midnight-ntwrk/ledger
+npm install --save-dev @types/node
+
+🧩 Install Compact (Midnight Developer Tools)
+Install Compact CLI
+curl --proto '=https' --tlsv1.2 -LsSf \
+https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh
+
+
+Add Compact to PATH:
+
+export PATH="$HOME/.local/bin:$PATH"
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+
+
+Install compiler version:
+
+compact update 0.26.0
 compact --version
-Smart Contract Compilation
-Navigate to the contract directory:
 
-bash
-Copy code
-cd contract
-Compile the smart contract:
+🏗 Project Structure
+workspace/repo/
+├── contract/
+│   ├── src/
+│   │   └── token.compact
+│   └── artifacts/
+├── src/
+│   └── server.ts
+├── public/
+│   └── index.html
+├── dist/
+├── package.json
+└── tsconfig.json
 
-bash
-Copy code
-npm run build
-Expected result:
+🧠 Smart Contract (Compact)
 
-TypeScript compiles successfully
+The contract defines basic token circuits:
 
-dist/ directory is generated
+mint
 
-This proves the contract logic and witness definitions compile correctly
+burn
 
-⚠️ Note: Midnight contracts do not deploy in the traditional sense.
-Logic is enforced through witnesses and state transitions, not persistent on-chain contracts.
+transfer
 
-Witness & State Transition Logic (Conceptual)
-The witness proves a user satisfies contract conditions
+getBalance
 
-The state transition defines how contract state evolves
+getTotalSupply
 
-Wallets generate and sign witnesses using zero-knowledge proofs
+Compile the contract:
 
-The network validates proofs without exposing private data
+compact compile contract/src/token.compact contract/artifacts/
 
-This project focuses on correct structure and interaction, not mainnet deployment.
+⚙ Backend (Node.js + TypeScript)
 
-Running the UI
-The UI is a static frontend that:
+Compile TypeScript:
 
-Detects installed Midnight wallets
+npx tsc
 
-Connects to the wallet
 
-Initiates minting / transaction flows
+Start the server:
 
-Steps
-Navigate to the UI directory:
+npm start
 
-bash
-Copy code
-cd public
-Start a local HTTP server:
 
-bash
-Copy code
-python3 -m http.server 8090
+Server runs at:
+
+http://localhost:8080
+
+🎨 Frontend
+
+Simple HTML interface
+
+Wallet connect simulation
+
+Token mint interaction
+
+Server health check
+
 Open in browser:
 
-text
-Copy code
-http://localhost:8090
-Wallet Detection Behavior
-Wallet detection is browser-based
+http://localhost:8080
 
-Only wallets installed in the current browser will appear
+✅ Verification Checklist
 
-Different browsers (Chrome, Edge, Firefox) have different wallet visibility
+Node.js v20+ installed
 
-This is expected and correct behavior
+Compact installed and accessible
 
-About Minting & Transactions
-Minting currently works in a local/testing context
+Contracts compile successfully
 
-Transactions are constructed and signed by the wallet
+TypeScript builds without errors
 
-If no network is connected, transactions may not appear in public explorers
+Server starts correctly
 
-This does not mean the logic is fake — it means the project is running in development mode
+UI loads in browser
 
-Hosting & Sharing
-This project can be hosted via:
+🚀 Next Steps
 
-GitHub Pages
+Integrate real Midnight wallet APIs
 
-Any static hosting service
+Deploy contracts to Midnight testnet
 
-When shared:
+Implement real transaction signing
 
-Wallet detection depends on the viewer’s browser
-
-Each user only sees their own installed wallets
-
-Academic Note
-This project represents:
-
-A first smart contract implementation
-
-A foundation for future features
-
-A demonstration of real blockchain architecture, not a finished production dApp
-
-
-
-
+Extend UI and contract logic
 
 
 
@@ -185,39 +233,8 @@ contract/dist/
 └── managed/
 
 
-If index.js exists, the contract compiled successfully.
+📚 Resources
 
-Running / Testing the Contract Output
+Midnight Docs: https://docs.midnight.network
 
-The compiled contract can now be:
-
-Imported into a host application
-
-Used by a witness or runtime layer
-
-Referenced by the UI for interaction logic
-
-Example import (Node / Host):
-
-import * as TokenContract from "./contract/dist/index.js";
-
-
-No deployment is performed at this stage — this repository is intended for local testing, compilation verification, and UI integration.
-
-Running the Frontend UI
-
-The UI in this repository is a static HTML frontend intended to demonstrate interaction flow.
-
-Serve the UI Locally
-
-From the project root:
-
-python3 -m http.server 8080 --directory public
-
-
-Then open in your browser:
-
-http://localhost:8080
-
-
-If the page loads without errors, the UI is working correctly.
+Compact Language: https://docs.midnight.network/develop/compact
